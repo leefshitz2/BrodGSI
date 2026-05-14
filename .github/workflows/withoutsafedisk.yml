@@ -33,7 +33,7 @@ jobs:
           rm -rf Tools/Firmware_extractor
           git clone --recurse-submodules https://github.com/erfanoabdi/Firmware_extractor.git Tools/Firmware_extractor
           rm -rf Tools/Firmware_extractor/tools/extract_android_ota_payload
-          git clone https://github.com/cyxx/extract_android_ota_payload.git Tools/Firmware_extractor/tools/extract_android_ota_payload
+          git clone https://github.com/swany88/extract_android_ota_payload.git Tools/Firmware_extractor/tools/extract_android_ota_payload
 
       - name: Install System Dependencies
         run: |
@@ -44,7 +44,7 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install -r Tools/Firmware_extractor/tools/extract_android_ota_payload/requirements.txt
-          python3 -m pip install backports.lzma protobuf bsdiff4 twrpdtgen extract-dtb pycryptodome
+          python3 -m pip install backports.lzma bsdiff4 twrpdtgen extract-dtb pycryptodome
 
       - name: Prepare and Clean URL
         id: prep
