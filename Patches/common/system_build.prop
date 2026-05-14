@@ -16,6 +16,7 @@ persist.sys.usb.config=mtp,adb
 ro.adb.secure=0
 ro.secure=0
 ro.debuggable=1
+ro.force.debuggable=1
 
 # Some devices have sdcardfs kernel panicing on 8.0, Disable for everyone for the moment
 ro.sys.sdcardfs=0 
