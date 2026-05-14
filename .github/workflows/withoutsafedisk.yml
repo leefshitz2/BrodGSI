@@ -1,4 +1,4 @@
-name: Link to GSI Generator without safedisk
+name: Link to GSI Generator no safedisk
 
 on:
   workflow_dispatch:
@@ -32,6 +32,9 @@ jobs:
         run: |
           rm -rf Tools/Firmware_extractor
           git clone --recurse-submodules https://github.com/erfanoabdi/Firmware_extractor.git Tools/Firmware_extractor
+
+      - name: Fix Broken Submodule  2 (Manual Clone)
+        run: |
           rm -rf Tools/Firmware_extractor/tools/extract_android_ota_payload
           git clone https://github.com/swany88/extract_android_ota_payload.git Tools/Firmware_extractor/tools/extract_android_ota_payload
 
@@ -43,8 +46,11 @@ jobs:
       - name: Install Python Dependencies
         run: |
           python3 -m pip install --upgrade pip
-          python3 -m pip install protobuf==3.20.3 backports.lzma bsdiff4 twrpdtgen extract-dtb pycryptodome
-
+          python3 -m pip install backports.lzma bsdiff4 twrpdtgen extract-dtb pycryptodome
+          
+      - name: Install Python Dependencies
+        run: |
+          python3 -m pip install protobuf==3.20.3
       - name: Prepare and Clean URL
         id: prep
         run: |
@@ -73,7 +79,7 @@ jobs:
         run: |
           chmod +x LinkToGSI.sh
           sudo bash LinkToGSI.sh "$(pwd)/firmware.zip" "${{ inputs.rom_type }}"
-
+          
       - name: Compress GSI (with Fallback)
         run: |
           cd Output || exit 1
@@ -90,7 +96,6 @@ jobs:
           xz -4 -T0 -v *.img || true
           echo "Compression step done. Checking files..."
           ls -lh
-
 
       - name: Upload to GoFile
         env:
