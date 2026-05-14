@@ -36,7 +36,7 @@ jobs:
       - name: Install System Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y unace unrar zip unzip p7zip-full p7zip-rar sharutils rar uudeview mpack arj cabextract rename liblzma-dev python3-pip brotli lz4 protobuf-compiler git gawk zstd
+          sudo apt-get install -y unace unrar zip unzip p7zip-full p7zip-rar sharutils rar uudeview mpack arj cabextract rename liblzma-dev python3-pip brotli lz4 protobuf-compiler git gawk
           
       - name: Install Python Dependencies
         run: |
@@ -81,8 +81,8 @@ jobs:
           # 2. Compress with xz -4 (Safe for RAM)
           # '|| true' ensures the workflow doesn't stop if compression fails
           
-          zstd -15 --long=27 --threads=0 *.img || true
-          #xz -4 -T0 -v *.img || true
+          #zstd -15 --long=27 --threads=0 *.img || true
+          xz -4 -T0 -v *.img || true
           echo "Compression step done. Checking files..."
           ls -lh
 
