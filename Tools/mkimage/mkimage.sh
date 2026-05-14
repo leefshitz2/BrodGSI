@@ -4,10 +4,14 @@ BASE_DIR=$1
 OUTPUT=$2
 SCRIPT_DIR=$(dirname "$0")
 TEMP_DIR="$SCRIPT_DIR/../../Temp"
-SIZE=$(du -sk "$BASE_DIR" | awk '{size=$1; size=size*1024; size=int(size*1.05); printf "%d", size}')
+SIZE=$(du -sk "$BASE_DIR" | awk '{size=$1; size=size*1024; size=int(size*1.20); printf "%d", size}')
 
 p="/plat_file_contexts"
 n="/nonplat_file_contexts"
+
+rm -f "$TEMP_DIR/file_contexts"
+touch "$TEMP_DIR/file_contexts"
+
 for f in "$BASE_DIR/system/etc/selinux" "$BASE_DIR/system/vendor/etc/selinux"; do
     if [[ -f "$f$p" ]]; then
         sudo cat "$f$p" >> "$TEMP_DIR/file_contexts"
@@ -80,16 +84,23 @@ if [[ -f "$TEMP_DIR/file_contexts" ]]; then
     file_contexts="$TEMP_DIR/file_contexts"
 fi
 
-sudo rm -rf "$BASE_DIR/persist"
-sudo rm -rf "$BASE_DIR/bt_firmware"
-sudo rm -rf "$BASE_DIR/firmware"
-sudo rm -rf "$BASE_DIR/dsp"
-sudo rm -rf "$BASE_DIR/cache"
-sudo mkdir -p "$BASE_DIR/bt_firmware"
-sudo mkdir -p "$BASE_DIR/persist"
-sudo mkdir -p "$BASE_DIR/firmware"
-sudo mkdir -p "$BASE_DIR/dsp"
-sudo mkdir -p "$BASE_DIR/cache"
+ rm -rf "$BASE_DIR/persist"
+ rm -rf "$BASE_DIR/bt_firmware"
+ rm -rf "$BASE_DIR/firmware"
+ rm -rf "$BASE_DIR/dsp"
+rm -rf "$BASE_DIR/cache"
+ mkdir -p "$BASE_DIR/bt_firmware"
+ mkdir -p "$BASE_DIR/persist"
+ mkdir -p "$BASE_DIR/firmware"
+ mkdir -p "$BASE_DIR/dsp"
+ mkdir -p "$BASE_DIR/cache"
+
+find "$BASE_DIR" -name "*.log" -delete
+find "$BASE_DIR" -name "*.tmp" -delete
+find "$BASE_DIR" -name "*.bak" -delete
+
+rm -rf "$BASE_DIR/system/apex/com.android.runtime.release"
+rm -rf "$BASE_DIR/system/apex/com.android.art.release"
 
 echo "Output image size: $(echo "scale=2; $SIZE / (1024^3)" | bc) GB"
-sudo $SCRIPT_DIR/mkuserimg_mke2fs.sh "$BASE_DIR/" "$OUTPUT" ext4 "/" $SIZE $file_contexts -j "0" -T "1230768000" -L "/" -I "256" -M "/" -m "5"
+ $SCRIPT_DIR/mkuserimg_mke2fs.sh "$BASE_DIR/" "$OUTPUT" ext4 "/" $SIZE $file_contexts -j "0" -T "1230768000" -L "/" -I "256" -M "/" -m "5"
