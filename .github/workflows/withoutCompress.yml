@@ -78,7 +78,7 @@ jobs:
       - name: Run LinkToGSI Script
         run: |
           chmod +x LinkToGSI.sh
-          sudo bash LinkToGSI.sh "$(pwd)/firmware.zip" "${{ inputs.rom_type }}"
+          bash LinkToGSI.sh "$(pwd)/firmware.zip" "${{ inputs.rom_type }}"
 
 
 
