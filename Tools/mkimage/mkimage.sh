@@ -4,15 +4,17 @@ BASE_DIR=$1
 OUTPUT=$2
 SCRIPT_DIR=$(dirname "$0")
 TEMP_DIR="$SCRIPT_DIR/../../Temp"
-SIZE=$(du -sk "$BASE_DIR" | awk '{size=$1; size=size*1024; size=int(size*1.12); printf "%d", size}')
+SIZE=$(du -sk "$BASE_DIR" | awk '{size=$1; size=size*1024; size=int(size*1.05); printf "%d", size}')
 
 p="/plat_file_contexts"
 n="/nonplat_file_contexts"
 
-rm -f "$TEMP_DIR/file_contexts"
-touch "$TEMP_DIR/file_contexts"
+p="/plat_file_contexts"
+n="/nonplat_file_contexts"
 
-for f in "$BASE_DIR/system/etc/selinux"; do
+p="/plat_file_contexts"
+n="/nonplat_file_contexts"
+for f in "$BASE_DIR/system/etc/selinux" "$BASE_DIR/system/vendor/etc/selinux"; do
     if [[ -f "$f$p" ]]; then
         sudo cat "$f$p" >> "$TEMP_DIR/file_contexts"
     fi
@@ -95,12 +97,5 @@ rm -rf "$BASE_DIR/cache"
  mkdir -p "$BASE_DIR/dsp"
  mkdir -p "$BASE_DIR/cache"
 
-find "$BASE_DIR" -name "*.log" -delete
-find "$BASE_DIR" -name "*.tmp" -delete
-find "$BASE_DIR" -name "*.bak" -delete
-
-rm -rf "$BASE_DIR/system/apex/com.android.runtime.release"
-rm -rf "$BASE_DIR/system/apex/com.android.art.release"
-
 echo "Output image size: $(echo "scale=2; $SIZE / (1024^3)" | bc) GB"
- $SCRIPT_DIR/mkuserimg_mke2fs.sh "$BASE_DIR/" "$OUTPUT" ext4 "/" $SIZE $file_contexts -j "0" -T "1230768000" -L "/" -I "256" -M "/" -m "0"
+$SCRIPT_DIR/mkuserimg_mke2fs.sh "$BASE_DIR/" "$OUTPUT" ext4 "/" $SIZE $file_contexts -j "0" -T "1230768000" -L "/" -I "256" -M "/" -m "5"

@@ -6,7 +6,15 @@ TEMP_DIR="$SCRIPT_DIR/../../Temp"
 
 product="$BASE_DIR/system/product"
 system_ext="$BASE_DIR/system/system_ext"
+SYSTEM_PROP="$BASE_DIR/system/build.prop"
 
+sed -i \
+'s/^ro.build.display.id=.*/ro.build.display.id=PortedByRofikKernel/' \
+"$SYSTEM_PROP"
+
+sed -i \
+'s/^ro.system.build.display.id=.*/ro.system.build.display.id=PortedByRofikKernel/' \
+"$SYSTEM_PROP"
 mkdir -p "$product"
 mkdir -p "$system_ext"
 
@@ -54,28 +62,15 @@ sed -i "/reboot_on_failure/d" $BASE_DIR/system/etc/init/hw/init.rc
 sed -i "/reboot_on_failure/d" $BASE_DIR/system/etc/init/apexd.rc
 sed -i "/reserved_disk/d" $BASE_DIR/system/etc/init/vold.rc
 
-plat_property=$BASE_DIR/system/etc/selinux/plat_property_contexts
-sed -i "/persist.vendor.camera/d" $plat_property
-sed -i "/ro.vendor.camera/d" $plat_property
-sed -i "/vendor.camera/d" $plat_property
-sed -i "/sys.usb.config/d" $plat_property
-sed -i "/sys.usb.configfs/d" $plat_property
-sed -i "/sys.usb.controller/d" $plat_property
-sed -i "/ro.actionable_compatible_property.enabled/d" $plat_property
-sed -i "/ro.build.fingerprint/d" $plat_property
-sed -i "/ro.opengles.version/d" $plat_property
-sed -i "/ro.product.ab_ota_partitions/d" $plat_property
-sed -i "/ro.vendor.build.ab_ota_partitions/d" $plat_property
+system_ext_plat_property=$system_ext/etc/selinux/system_ext_property_contexts
+sed -i "/persist.vendor.camera/d" $system_ext_plat_property
+sed -i "/ro.vendor.camera/d" $system_ext_plat_property
+sed -i "/vendor.camera/d" $system_ext_plat_property
 
-if [ -f "$system_ext/etc/selinux/system_ext_property_contexts" ]; then
-    sed -i "/persist.vendor.camera/d" "$system_ext/etc/selinux/system_ext_property_contexts"
-    sed -i "/ro.vendor.camera/d" "$system_ext/etc/selinux/system_ext_property_contexts"
-    sed -i "/vendor.camera/d" "$system_ext/etc/selinux/system_ext_property_contexts"
-    sed -i "/persist.vendor.camera/d" $system_ext/etc/selinux/system_ext_sepolicy.cil
+sed -i "/persist.vendor.camera/d" $system_ext/etc/selinux/system_ext_sepolicy.cil
 sed -i "/ro.vendor.camera/d" $system_ext/etc/selinux/system_ext_sepolicy.cil
 sed -i "/vendor.camera/d" $system_ext/etc/selinux/system_ext_sepolicy.cil
 sed -i "/genfscon/d" $system_ext/etc/selinux/system_ext_sepolicy.cil
-fi
 
 rm -rf $system_ext/etc/selinux/mapping/*
 rm -rf $product/etc/selinux/mapping/*
@@ -100,12 +95,4 @@ done
 find "$BASE_DIR" -type f -name "fstab.*" -exec rm -f {} + 2>/dev/null
 find "$BASE_DIR" -type f -name "verity_key" -exec rm -f {} + 2>/dev/null
 
-SYSTEM_PROP="$BASE_DIR/system/build.prop"
 
-sed -i \
-'s/^ro.build.display.id=.*/ro.build.display.id=PortedByRofikKernel/' \
-"$SYSTEM_PROP"
-
-sed -i \
-'s/^ro.system.build.display.id=.*/ro.system.build.display.id=PortedByRofikKernel/' \
-"$SYSTEM_PROP"
