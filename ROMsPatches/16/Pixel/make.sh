@@ -3,9 +3,9 @@
 SCRIPT_DIR=$(dirname "$0")
 BASE_DIR="$1"
 
-product="$BASE_DIR/product"
+product="$BASE_DIR/system/product"
 
-    system_ext="$BASE_DIR/system_ext"
+    system_ext="$BASE_DIR/system/system_ext"
 
 sed -i "/dataservice_app/d" $product/etc/selinux/product_seapp_contexts
 sed -i "/dataservice_app/d" $system_ext/etc/selinux/system_ext_seapp_contexts
