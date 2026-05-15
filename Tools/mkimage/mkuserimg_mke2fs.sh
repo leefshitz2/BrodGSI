@@ -178,7 +178,6 @@ mke2fs="$LOCALDIR/mke2fs"
 e2fsdroid="$LOCALDIR/e2fsdroid"
 
 MKE2FS_OPTS+=" -O extent,huge_file,dir_index,uninit_bg,extra_isize,metadata_csum,64bit"
-MKE2FS_OPTS+=" -T 1230768000"
 MKE2FS_OPTS+=" -I 256"
 MAKE_EXT4FS_CMD="$mke2fs $MKE2FS_OPTS -t $EXT_VARIANT -b $BLOCKSIZE $OUTPUT_FILE $SIZE"
 echo $MAKE_EXT4FS_ENV $MAKE_EXT4FS_CMD
