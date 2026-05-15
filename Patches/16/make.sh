@@ -3,7 +3,7 @@
 BASE_DIR=$1
 SCRIPT_DIR=$(dirname "$0")
 
-product="$BASE_DIR/product"
+product="$BASE_DIR/system/product"
 
 if [ ! -d "$product" ]; then
     echo "error: Missing PHH product dir"
