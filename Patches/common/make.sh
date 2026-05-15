@@ -4,8 +4,8 @@ BASE_DIR=$1
 SCRIPT_DIR=$(dirname "$0")
 TEMP_DIR="$SCRIPT_DIR/../../Temp"
 
-product="$BASE_DIR/system/product"
-system_ext="$BASE_DIR/system/system_ext"
+product="$BASE_DIR/product"
+system_ext="$BASE_DIR/system_ext"
 
 mkdir -p "$product"
 mkdir -p "$system_ext"
