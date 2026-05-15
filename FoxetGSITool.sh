@@ -99,44 +99,7 @@ if [ ! -d "ROMsPatches/$android_version/$ROM_TYPE" ]; then
 fi
 
 
-echo "Converting to PHH layout..."
-
-mkdir -p "$BASE_DIR/system"
-
-# PRODUCT
-if [ -d "$BASE_DIR/product" ] && [ ! -L "$BASE_DIR/product" ]; then
-
-    # only move if target not exists
-    if [ ! -e "$BASE_DIR/system/product" ]; then
-        echo "Moving product -> system/product"
-        mv "$BASE_DIR/product" "$BASE_DIR/system/product"
-    else
-        echo "system/product already exists, skipping move"
-        rm -rf "$BASE_DIR/product"
-    fi
-
-    ln -sfn system/product "$BASE_DIR/product"
-fi
-
-# SYSTEM_EXT
-if [ -d "$BASE_DIR/system_ext" ] && [ ! -L "$BASE_DIR/system_ext" ]; then
-
-    # only move if target not exists
-    if [ ! -e "$BASE_DIR/system/system_ext" ]; then
-        echo "Moving system_ext -> system/system_ext"
-        mv "$BASE_DIR/system_ext" "$BASE_DIR/system/system_ext"
-    else
-        echo "system/system_ext already exists, skipping move"
-        rm -rf "$BASE_DIR/system_ext"
-    fi
-
-    ln -sfn system/system_ext "$BASE_DIR/system_ext"
-fi
-
-# Create symlinks
-#ln -sf system/product "$BASE_DIR/product"
-#ln -sf system/system_ext "$BASE_DIR/system_ext"
-
+echo "PHH layout already prepared by LinkToGSI"
 
 echo "Patching started..."
 Patches/$android_version/make.sh "$BASE_DIR"
