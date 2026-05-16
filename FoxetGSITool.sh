@@ -111,13 +111,18 @@ ROMsPatches/$android_version/$ROM_TYPE/make.sh "$BASE_DIR"
 tar -xf "Patches/apex/$android_version.tar.xz" -C "$BASE_DIR/system/apex"
 
 echo "Copy Vendor Overlay..."
-if [ -d "$BASE_DIR/vendor" ] && [ "$(find "$BASE_DIR/vendor" -mindepth 1 | head -n 1)" ]; then
+
+REAL_VENDOR="UnpackedROMs/vendor"
+
+if [ -d "$REAL_VENDOR" ] && \
+   [ "$(find "$REAL_VENDOR" -mindepth 1 | head -n 1)" ]; then
+
     echo "Vendor files detected"
-    
+
     bash Tools/vendoroverlay/addvo.sh "$BASE_DIR"
 
-    echo "Cleaning vendor partition"
-    rm -rf "$BASE_DIR/vendor/"*
+else
+    echo "Vendor partition empty"
 fi
 
 if [[ $(grep "ro.build.display.id" "$BASE_DIR/system/build.prop") ]]; then
