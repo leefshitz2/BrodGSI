@@ -56,7 +56,7 @@ if [ -z "$2" ]; then
 fi
 
 # Clean unpack only
-rm -rf UnpackedROMs
+sudo rm -rf UnpackedROMs
 mkdir -p UnpackedROMs
 
 # Handle ROM source
@@ -104,7 +104,7 @@ for partition in $partitions; do
                 "UnpackedROMs/temp_mount"
         fi
 
-        cp -a "UnpackedROMs/temp_mount/." "UnpackedROMs/$partition/"
+       sudo cp -a "UnpackedROMs/temp_mount/." "UnpackedROMs/$partition/"
 
         sudo umount -R "UnpackedROMs/temp_mount"
     fi
@@ -120,10 +120,10 @@ for partition in product system_ext; do
 
         echo "Replacing symlinked $partition with real partition"
 
-        rm -f "$TARGET"
+       sudo rm -f "$TARGET"
 
         if [ -d "UnpackedROMs/$partition" ]; then
-            mv "UnpackedROMs/$partition" "$TARGET"
+         sudo   mv "UnpackedROMs/$partition" "$TARGET"
         fi
 
     # Missing inside system/system
@@ -132,28 +132,29 @@ for partition in product system_ext; do
 
         echo "Embedding standalone $partition into system/system"
 
-        mv "UnpackedROMs/$partition" "$TARGET"
+       sudo mv "UnpackedROMs/$partition" "$TARGET"
 
     else
         echo "$partition already embedded in system/system"
-        rm -rf "UnpackedROMs/$partition"
+       sudo rm -rf "UnpackedROMs/$partition"
     fi
 done
 
 # Create PHH-style root symlinks
 echo "Creating root symlinks..."
 
-rm -rf UnpackedROMs/system/product
-rm -rf UnpackedROMs/system/system_ext
+sudo rm -rf UnpackedROMs/system/product
+sudo rm -rf UnpackedROMs/system/system_ext
 
-ln -s /system/product \
+sudo ln -s /system/product \
     UnpackedROMs/system/product
 
-ln -s /system/system_ext \
+sudo ln -s /system/system_ext \
     UnpackedROMs/system/system_ext
     
     
 echo "===== VERIFY ====="
-ls -l UnpackedROMs/system/system/
+#ls -l UnpackedROMs/system/system/
+
 
 bash FoxetGSITool.sh "UnpackedROMs/system" "$ROM_TYPE"

@@ -11,79 +11,79 @@ sed -i "/dataservice_app/d" $product/etc/selinux/product_seapp_contexts
 sed -i "/dataservice_app/d" $system_ext/etc/selinux/system_ext_seapp_contexts
 
 # Delete Google apps
-rm -rf $BASE_DIR/system/app/datastatusnotification
-rm -rf $BASE_DIR/system/app/QAS_DVC_MSP_VZW
-rm -rf $BASE_DIR/system/app/VZWAPNLib
-rm -rf $BASE_DIR/system/app/vzw_msdc_api
-rm -rf $BASE_DIR/system/priv-app/CNEService
-rm -rf $BASE_DIR/system/priv-app/DMService
-rm -rf $BASE_DIR/system/priv-app/VzwOmaTrigger
-rm -rf $BASE_DIR/system/etc/permissions/com.google.android.camera.experimental2017.xml
-rm -rf $product/app/YouTube
-rm -rf $product/app/YouTubeMusicPrebuilt
-rm -rf $product/app/PrebuiltGmail
-rm -rf $product/app/Maps
-rm -rf $product/app/Drive
-rm -rf $product/app/DiagnosticsToolPrebuilt
-rm -rf $product/app/CalendarGooglePrebuilt
-rm -rf $product/app/NgaResources
-rm -rf $product/app/GoogleCamera
-rm -rf $product/app/WallpapersBReel*
-rm -rf $product/app/Music2
-rm -rf $product/app/Photos
-rm -rf $product/app/Videos
-rm -rf $product/app/DevicePolicyPrebuilt
-rm -rf $product/app/GoogleTTS
-rm -rf $product/app/MobileFeliCaMenuMainApp
-rm -rf $product/app/MobileFeliCaClient
-rm -rf $product/priv-app/TurboPrebuilt
-rm -rf $product/priv-app/TipsPrebuilt
-rm -rf $product/priv-app/BetaFeedback
-rm -rf $product/priv-app/HelpRtcPrebuilt
-rm -rf $product/priv-app/MyVerizonServices
-rm -rf $product/priv-app/OTAConfigPrebuilt
-rm -rf $product/priv-app/RecorderPrebuilt
-rm -rf $product/priv-app/SafetyHubLprPrebuilt
-rm -rf $product/priv-app/ScribePrebuilt
-rm -rf $product/priv-app/ConnMO
-rm -rf $product/priv-app/DCMO
-rm -rf $product/priv-app/SprintDM
-rm -rf $product/priv-app/SprintHM
-rm -rf $product/priv-app/EuiccSupportPixel
-rm -rf $product/priv-app/EuiccGoogle
-rm -rf $product/priv-app/WfcActivation
-rm -rf $product/priv-app/AmbientSensePrebuilt
-rm -rf $product/priv-app/GoogleCamera
-rm -rf $product/priv-app/CarrierServices
-rm -rf $system_ext/priv-app/GoogleFeedback
-rm -rf $system_ext/priv-app/PixelNfc
-rm -rf $BASE_DIR/system/app/NfcNci
-rm -rf $system_ext/priv-app/YadaYada
-rm -rf $BASE_DIR/system/priv-app/TagGoogle
-rm -rf $product/app/VZWAPNLib
-rm -rf $product/priv-app/AndroidAutoStubPrebuilt
-rm -rf $product/priv-app/SafetyHubPrebuilt
-rm -rf $product/priv-app/DreamlinerDreamsPrebuilt*
-rm -rf $product/priv-app/DreamlinerPrebuilt*
-rm -rf $product/priv-app/DreamlinerUpdater
-rm -rf $system_ext/priv-app/HbmSVManager
-rm -rf $product/overlay/PixelDocumentsUIOverlay
-rm -rf $product/priv-app/Velvet
-rm -rf $product/priv-app/RecorderPrebuilt*
-rm -rf $product/app/arcore-1.42
-rm -rf $product/app/talkback
-rm -rf $product/priv-app/GoogleRestorePrebuilt*
-rm -rf $product/priv-app/AdaptiveVPNPrebuilt*
-rm -rf $product/priv-app/AndroidAutoStubPrebuilt
-rm -rf $product/priv-app/PrebuiltDeskClockGoogle*
-rm -rf $product/priv-app/PixelSupportPrebuilt
-rm -rf $product/priv-app/PixelSupportPrebuilt
-rm -rf $product/priv-app/WeatherPixelPrebuilt*
-rm -rf $product/app/WallpaperEmojiPrebuilt*
-rm -rf $product/app/WallpaperAIPrebuilt*
+sudo rm -rf $BASE_DIR/system/app/datastatusnotification
+sudo rm -rf $BASE_DIR/system/app/QAS_DVC_MSP_VZW
+sudo rm -rf $BASE_DIR/system/app/VZWAPNLib
+sudo rm -rf $BASE_DIR/system/app/vzw_msdc_api
+sudo rm -rf $BASE_DIR/system/priv-app/CNEService
+sudo rm -rf $BASE_DIR/system/priv-app/DMService
+sudo rm -rf $BASE_DIR/system/priv-app/VzwOmaTrigger
+sudo rm -rf $BASE_DIR/system/etc/permissions/com.google.android.camera.experimental2017.xml
+sudo rm -rf $product/app/YouTube
+sudo rm -rf $product/app/YouTubeMusicPrebuilt
+sudo rm -rf $product/app/PrebuiltGmail
+sudo rm -rf $product/app/Maps
+sudo rm -rf $product/app/Drive
+sudo rm -rf $product/app/DiagnosticsToolPrebuilt
+sudo rm -rf $product/app/CalendarGooglePrebuilt
+sudo rm -rf $product/app/NgaResources
+sudo rm -rf $product/app/GoogleCamera
+sudo rm -rf $product/app/WallpapersBReel*
+sudo rm -rf $product/app/Music2
+sudo rm -rf $product/app/Photos
+sudo rm -rf $product/app/Videos
+sudo rm -rf $product/app/DevicePolicyPrebuilt
+sudo rm -rf $product/app/GoogleTTS
+sudo rm -rf $product/app/MobileFeliCaMenuMainApp
+sudo rm -rf $product/app/MobileFeliCaClient
+sudo rm -rf $product/priv-app/TurboPrebuilt
+sudo rm -rf $product/priv-app/TipsPrebuilt
+sudo rm -rf $product/priv-app/BetaFeedback
+sudo rm -rf $product/priv-app/HelpRtcPrebuilt
+sudo rm -rf $product/priv-app/MyVerizonServices
+sudo rm -rf $product/priv-app/OTAConfigPrebuilt
+sudo rm -rf $product/priv-app/RecorderPrebuilt
+sudo rm -rf $product/priv-app/SafetyHubLprPrebuilt
+sudo rm -rf $product/priv-app/ScribePrebuilt
+sudo rm -rf $product/priv-app/ConnMO
+sudo rm -rf $product/priv-app/DCMO
+sudo rm -rf $product/priv-app/SprintDM
+sudo rm -rf $product/priv-app/SprintHM
+sudo rm -rf $product/priv-app/EuiccSupportPixel
+sudo rm -rf $product/priv-app/EuiccGoogle
+sudo rm -rf $product/priv-app/WfcActivation
+sudo rm -rf $product/priv-app/AmbientSensePrebuilt
+sudo rm -rf $product/priv-app/GoogleCamera
+sudo rm -rf $product/priv-app/CarrierServices
+sudo rm -rf $system_ext/priv-app/GoogleFeedback
+sudo rm -rf $system_ext/priv-app/PixelNfc
+sudo rm -rf $BASE_DIR/system/app/NfcNci
+sudo rm -rf $system_ext/priv-app/YadaYada
+sudo rm -rf $BASE_DIR/system/priv-app/TagGoogle
+sudo rm -rf $product/app/VZWAPNLib
+sudo rm -rf $product/priv-app/AndroidAutoStubPrebuilt
+sudo rm -rf $product/priv-app/SafetyHubPrebuilt
+sudo rm -rf $product/priv-app/DreamlinerDreamsPrebuilt*
+sudo rm -rf $product/priv-app/DreamlinerPrebuilt*
+sudo rm -rf $product/priv-app/DreamlinerUpdater
+sudo rm -rf $system_ext/priv-app/HbmSVManager
+sudo rm -rf $product/overlay/PixelDocumentsUIOverlay
+sudo rm -rf $product/priv-app/Velvet
+sudo rm -rf $product/priv-app/RecorderPrebuilt*
+sudo rm -rf $product/app/arcore-1.42
+sudo rm -rf $product/app/talkback
+sudo rm -rf $product/priv-app/GoogleRestorePrebuilt*
+sudo rm -rf $product/priv-app/AdaptiveVPNPrebuilt*
+sudo rm -rf $product/priv-app/AndroidAutoStubPrebuilt
+sudo rm -rf $product/priv-app/PrebuiltDeskClockGoogle*
+sudo rm -rf $product/priv-app/PixelSupportPrebuilt
+sudo rm -rf $product/priv-app/PixelSupportPrebuilt
+sudo rm -rf $product/priv-app/WeatherPixelPrebuilt*
+sudo rm -rf $product/app/WallpaperEmojiPrebuilt*
+sudo rm -rf $product/app/WallpaperAIPrebuilt*
 
 # Hotword
-rm -rf $product/priv-app/HotwordEnrollment*
-rm -rf $system_ext/framework/com.android.hotwordenrollment*
-rm -rf $system_ext/framework/oat/arm/com.android.hotwordenrollment*
-rm -rf $system_ext/framework/oat/arm64/com.android.hotwordenrollment*
+sudo rm -rf $product/priv-app/HotwordEnrollment*
+sudo rm -rf $system_ext/framework/com.android.hotwordenrollment*
+sudo rm -rf $system_ext/framework/oat/arm/com.android.hotwordenrollment*
+sudo rm -rf $system_ext/framework/oat/arm64/com.android.hotwordenrollment*

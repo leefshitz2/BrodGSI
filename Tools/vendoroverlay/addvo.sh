@@ -60,7 +60,7 @@ fi
 
 echo "Appending rw-system-add.sh"
 
-cat "$SCRIPT_DIR/rw-system-add.sh" \
+sudo cat "$SCRIPT_DIR/rw-system-add.sh" \
 >> "$BASE_DIR/system/bin/rw-system.sh"
 
 echo "rw-system-add.sh appended"

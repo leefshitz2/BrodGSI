@@ -51,8 +51,8 @@ mkdir -p "$BASE_DIR"
 echo "Copying to temp directory"
 cp -r "$INPUT_DIR/." "$BASE_DIR/"
 
-echo "===== BASE STRUCTURE ====="
-find "$BASE_DIR" -maxdepth 2 | sort
+#echo "===== BASE STRUCTURE ====="
+#find "$BASE_DIR" -maxdepth 1 | sort
 
 SDK_VERSION=$(grep -m1 "ro.build.version.sdk" "$BASE_DIR/system/build.prop" | cut -d '=' -f2 | tr -dc '0-9')
 
@@ -109,7 +109,7 @@ echo "Patching started..."
 Patches/$android_version/make.sh "$BASE_DIR"
 Patches/common/make.sh "$BASE_DIR"
 ROMsPatches/$android_version/$ROM_TYPE/make.sh "$BASE_DIR"
-tar -xf "Patches/apex/$android_version.tar.xz" -C "$BASE_DIR/system/apex"
+sudo tar -xf "Patches/apex/$android_version.tar.xz" -C "$BASE_DIR/system/apex"
 
 echo "Copy Vendor Overlay..."
 
@@ -134,7 +134,7 @@ elif [[ $(grep "ro.build.id" "$BASE_DIR/system/build.prop") ]]; then
 fi
 displayid2=$(echo "$displayid" | sed 's/\./\\./g')
 bdisplay=$(grep "$displayid" "$BASE_DIR/system/build.prop" | sed 's/\./\\./g; s:/:\\/:g; s/\,/\\,/g; s/\ /\\ /g')
-sed -i "s/$bdisplay/$displayid2=Port\.by\.RofikKernel\.Dev/" "$BASE_DIR/system/build.prop"
+sudo sed -i "s/$bdisplay/$displayid2=Port\.by\.RofikKernel\.Dev/" "$BASE_DIR/system/build.prop"
 
 current_date=$(date +"%Y-%m-%d")
 
@@ -144,18 +144,18 @@ current_date=$(date +"%Y-%m-%d")
 echo "Create $ROM_TYPE-AB-$android_version-$current_date.img"
 #rm -rf "Output"
 mkdir -p "Output"
-Tools/mkimage/mkimage.sh "$BASE_DIR" "Output/system.img"
+sudo Tools/mkimage/mkimage.sh "$BASE_DIR" "Output/system.img"
 
 FINAL_NAME="$ROM_TYPE-AB-$android_version-$current_date-Rofikkernel"
 bash resetpermission.sh
 echo "Compressing image..."
 
 cd Output || exit 1
-
+sudo chown -R $USER:$USER .
 zip -r9 "${FINAL_NAME}.zip" "system.img"
 
 echo "Done:"
 ls -lh "${FINAL_NAME}.zip"
-sudo chown -R $USER:$USER .
+
 rm system.img
 

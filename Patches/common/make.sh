@@ -10,74 +10,57 @@ system_ext="$BASE_DIR/system/system_ext"
 #mkdir -p "$product"
 #mkdir -p "$system_ext"
 
-rsync -ra "$SCRIPT_DIR/system/" "$BASE_DIR/system/"
-rsync -ra "$SCRIPT_DIR/system_ext/" "$system_ext/"
+sudo rsync -ra "$SCRIPT_DIR/system/" "$BASE_DIR/system/"
+sudo rsync -ra "$SCRIPT_DIR/system_ext/" "$system_ext/"
 
+
+
+sudo sed -i '/remote_provisioning/ s/^/#/' "$BASE_DIR/system/build.prop"
+sudo sed -i '/remote_provisioning/ s/^/#/' "$BASE_DIR/system/system_ext/etc/build.prop"
+sudo sed -i '/remote_provisioning/ s/^/#/' "$BASE_DIR/system/product/etc/build.prop"
+patch_rkp "$BASE_DIR/system/build.prop"
+
+echo "done disable rkp"
 # =========================================================
 # ROFIKKERNEL DEBUG
 # =========================================================
 
-chmod 0755 "$BASE_DIR/system/bin/rofikkernel-debug.sh"
+sudo chmod 0755 "$BASE_DIR/system/bin/rofikkernel-debug.sh"
     
-sed -i "/ro.secure/d" $BASE_DIR/system/build.prop
-sed -i "/ro.adb.secure/d" $BASE_DIR/system/build.prop
-sed -i "/ro.debuggable/d" $BASE_DIR/system/build.prop
-sed -i "/ro.force.debuggable/d" $BASE_DIR/system/build.prop
-sed -i "/media.settings.xml/d" $BASE_DIR/system/build.prop
-sed -i "/ro.arch/d" $BASE_DIR/system/build.prop
-sed -i "/persist.sys.usb.config/d" $BASE_DIR/system/build.prop
-sed -i "/ro.actionable_compatible_property.enabled/d" $BASE_DIR/system/build.prop
-sed -i "/ro.setupwizard.mode/d" $BASE_DIR/system/build.prop
+sudo sed -i "/ro.secure/d" $BASE_DIR/system/build.prop
+sudo sed -i "/ro.adb.secure/d" $BASE_DIR/system/build.prop
+sudo sed -i "/ro.debuggable/d" $BASE_DIR/system/build.prop
+sudo sed -i "/ro.force.debuggable/d" $BASE_DIR/system/build.prop
+sudo sed -i "/media.settings.xml/d" $BASE_DIR/system/build.prop
+sudo sed -i "/ro.arch/d" $BASE_DIR/system/build.prop
+sudo sed -i "/persist.sys.usb.config/d" $BASE_DIR/system/build.prop
+sudo sed -i "/ro.actionable_compatible_property.enabled/d" $BASE_DIR/system/build.prop
+sudo sed -i "/ro.setupwizard.mode/d" $BASE_DIR/system/build.prop
 if [ -f "$product/etc/build.prop" ]; then
-    sed -i "/ro.setupwizard.mode/d" "$product/etc/build.prop"
-    sed -i "/ro.product.ab_ota_partitions/d" "$product/etc/build.prop"
-    cat "$SCRIPT_DIR/product_build.prop" >> "$product/etc/build.prop"
+   sudo  sed -i "/ro.setupwizard.mode/d" "$product/etc/build.prop"
+   sudo  sed -i "/ro.product.ab_ota_partitions/d" "$product/etc/build.prop"
+  sudo   cat "$SCRIPT_DIR/product_build.prop" >> "$product/etc/build.prop"
 fi
 
-cat $SCRIPT_DIR/system_build.prop >> $BASE_DIR/system/build.prop
-cat $SCRIPT_DIR/product_build.prop >> $product/etc/build.prop
-cat $SCRIPT_DIR/file_contexts >> $BASE_DIR/system/etc/selinux/plat_file_contexts
+sudo cat $SCRIPT_DIR/system_build.prop >> $BASE_DIR/system/build.prop
+sudo cat $SCRIPT_DIR/product_build.prop >> $product/etc/build.prop
+sudo cat $SCRIPT_DIR/file_contexts >> $BASE_DIR/system/etc/selinux/plat_file_contexts
 
-# =========================================================
-# RKP / Keymaster compatibility patch (remote provisioning)
-# =========================================================
+sudo rm -rf $system_ext/etc/permissions/qti_permissions.xml
+sudo rm -rf $system_ext/etc/permissions/com.qti.dpmframework.xml
 
-patch_rkp() {
-    local FILE="$1"
+sudo rm -rf $system_ext/app/QesdkSysService
+sudo rm -rf $system_ext/priv-app/com.qualcomm.qti.services.systemhelper
+sudo rm -rf $system_ext/priv-app/com.qualcomm.location
 
-    if [ -f "$FILE" ]; then
-        echo "[RKP PATCH] processing $FILE"
-
-        # comment ALL remote_provisioning lines (not only prefix)
-        sed -i '/remote_provisioning/ s/^/#/g' "$FILE"
-
-        echo "[RKP PATCH] done $FILE"
-    else
-        echo "[RKP PATCH] skip missing $FILE"
-    fi
-}
-
-patch_rkp "$BASE_DIR/system/build.prop"
-patch_rkp "$BASE_DIR/system_ext/etc/build.prop"
-patch_rkp "$BASE_DIR/product/etc/build.prop"
+sudo rm -rf $system_ext/priv-app/QtiWifiService
+sudo rm -rf $system_ext/priv-app/dpmserviceapp
 
 
-
-rm -rf $system_ext/etc/permissions/qti_permissions.xml
-rm -rf $system_ext/etc/permissions/com.qti.dpmframework.xml
-
-rm -rf $system_ext/app/QesdkSysService
-rm -rf $system_ext/priv-app/com.qualcomm.qti.services.systemhelper
-rm -rf $system_ext/priv-app/com.qualcomm.location
-
-rm -rf $system_ext/priv-app/QtiWifiService
-rm -rf $system_ext/priv-app/dpmserviceapp
-
-
-rm -rf $BASE_DIR/system/app/DiracManager
+sudo rm -rf $BASE_DIR/system/app/DiracManager
 
 $SCRIPT_DIR/../../Tools/sepolicy/sepolicy_prop_remover.sh $BASE_DIR/system/etc/selinux/plat_property_contexts "device/qcom/sepolicy" > $TEMP_DIR/plat_property_contexts
-mv $TEMP_DIR/plat_property_contexts $BASE_DIR/system/etc/selinux/plat_property_contexts
+sudo mv $TEMP_DIR/plat_property_contexts $BASE_DIR/system/etc/selinux/plat_property_contexts
 sed -i "/typetransition location_app/d" $BASE_DIR/system/etc/selinux/plat_sepolicy.cil
 
 sed -i "/reboot_on_failure/d" $BASE_DIR/system/etc/init/hw/init.rc
@@ -94,23 +77,23 @@ sed -i "/ro.vendor.camera/d" $system_ext/etc/selinux/system_ext_sepolicy.cil
 sed -i "/vendor.camera/d" $system_ext/etc/selinux/system_ext_sepolicy.cil
 sed -i "/genfscon/d" $system_ext/etc/selinux/system_ext_sepolicy.cil
 
-rm -rf $system_ext/etc/selinux/mapping/*
-rm -rf $product/etc/selinux/mapping/*
+sudo rm -rf $system_ext/etc/selinux/mapping/*
+sudo rm -rf $product/etc/selinux/mapping/*
 
-rm -rf $BASE_DIR/system/bin/update_engine
-rm -rf $BASE_DIR/system/bin/update_verifier
-rm -rf $BASE_DIR/system/etc/init/recovery-persist.rc
-rm -rf $BASE_DIR/system/etc/init/recovery-refresh.rc
-rm -rf $BASE_DIR/system/etc/init/update_engine.rc
-rm -rf $BASE_DIR/system/etc/init/update_verifier.rc
-rm -rf $BASE_DIR/system/etc/init/cppreopts.rc
-rm -rf $BASE_DIR/system/etc/init/otapreopt.rc
+sudo rm -rf $BASE_DIR/system/bin/update_engine
+sudo rm -rf $BASE_DIR/system/bin/update_verifier
+sudo rm -rf $BASE_DIR/system/etc/init/recovery-persist.rc
+sudo rm -rf $BASE_DIR/system/etc/init/recovery-refresh.rc
+sudo rm -rf $BASE_DIR/system/etc/init/update_engine.rc
+sudo rm -rf $BASE_DIR/system/etc/init/update_verifier.rc
+sudo rm -rf $BASE_DIR/system/etc/init/cppreopts.rc
+sudo rm -rf $BASE_DIR/system/etc/init/otapreopt.rc
 
-rm -rf $BASE_DIR/system/merge_config_*
-rm -rf $system_ext/apex/com.android.vndk.v*
+sudo rm -rf $BASE_DIR/system/merge_config_*
+sudo rm -rf $system_ext/apex/com.android.vndk.v*
 
 find "$BASE_DIR" -type d \( -name "app" -o -name "priv-app" \) | while read -r dir; do
-    find "$dir" -type d -name "oat" -exec rm -rf {} + 2>/dev/null
+    find "$dir" -type d -name "oat" -exec sudo rm -rf {} + 2>/dev/null
     find "$dir" -type f -name "*.prof" -exec rm -f {} + 2>/dev/null
 done
 

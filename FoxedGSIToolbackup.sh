@@ -48,7 +48,7 @@ fi
 rm -rf "$BASE_DIR"
 mkdir -p "$BASE_DIR"
 echo "Copying to temp directory"
-cp -r "$INPUT_DIR/." "$BASE_DIR/"
+sudo cp -r "$INPUT_DIR/." "$BASE_DIR/"
 
 SDK_VERSION=$(grep -m1 "ro.build.version.sdk" "$BASE_DIR/system/build.prop" | cut -d '=' -f2 | tr -dc '0-9')
 
@@ -115,7 +115,7 @@ elif [[ $(grep "ro.build.id" "$BASE_DIR/system/build.prop") ]]; then
 fi
 displayid2=$(echo "$displayid" | sed 's/\./\\./g')
 bdisplay=$(grep "$displayid" "$BASE_DIR/system/build.prop" | sed 's/\./\\./g; s:/:\\/:g; s/\,/\\,/g; s/\ /\\ /g')
-sed -i "s/$bdisplay/$displayid2=Builded\.by\.defnotegor\.Using\.FoxetGSITool/" "$BASE_DIR/system/build.prop"
+sed -i "s/$bdisplay/$displayid2=Builded\.by\.rofikkerneldev\.GSI/" "$BASE_DIR/system/build.prop"
 
 current_date=$(date +"%Y-%m-%d")
 
