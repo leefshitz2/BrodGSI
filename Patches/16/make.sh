@@ -13,6 +13,10 @@ else
 fi
 
 # PHH Patches
+[ -d "$SCRIPT_DIR/system" ] && \
 rsync -ra "$SCRIPT_DIR/system/" "$BASE_DIR/system/"
-mkdir -p "$product/overlay"
-rsync -ra "$SCRIPT_DIR/overlay/" "$product/overlay/"
+
+if [ -d "$SCRIPT_DIR/overlay" ]; then
+    mkdir -p "$product/overlay"
+    rsync -ra "$SCRIPT_DIR/overlay/" "$product/overlay/"
+fi
