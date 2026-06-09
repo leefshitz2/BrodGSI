@@ -19,7 +19,7 @@ pip3 install backports.lzma protobuf twrpdtgen extract-dtb pycryptodome
 ### Generating GSI from stock firmware URL
 Example: for making HyperOS 3 of Redmi A7 Pro firmware, you can use this command
 ```
-sudo bash LinkToGSI.sh "https://cdnorg.d.miui.com/OS3.0.3.0.WBVIDXM/arctic_id_global-images-OS3.0.3.0.WBVIDXM-user-20260522.0000.00-16.0-id-b2351f6de5.tgz" Generic
+sudo bash LinkToGSI.sh  "https://cdnorg.d.miui.com/OS3.0.3.0.WBVIDXM/arctic_id_global-ota_full-OS3.0.3.0.WBVIDXM-user-16.0-0997a3c45e.zip" Generic
 ```
 
 
