@@ -7,13 +7,13 @@ Telegram channel: https://t.me/BrodGSI
 ```
 git clone https://github.com/leefshitz2/BrodGSI.git
 cd BrodGSI
+git submodule update --init --recursive
 ```
 
 ### For setting up requirements
 ```
 sudo apt install unace unrar zip unzip p7zip-full p7zip-rar sharutils rar uudeview mpack arj cabextract rename liblzma-dev python3-pip brotli lz4 protobuf-compiler git gawk
 pip3 install backports.lzma protobuf twrpdtgen extract-dtb pycryptodome
-git submodule update --init --recursive
 ```
 
 ### Generating GSI from stock firmware URL
